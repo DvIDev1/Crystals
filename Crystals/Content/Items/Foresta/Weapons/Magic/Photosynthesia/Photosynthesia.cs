@@ -13,9 +13,8 @@ namespace Crystals.Content.Items.Foresta.Weapons.Magic.Photosynthesia
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Photosynthesia");
-            Tooltip.SetDefault("An Ancient book from The Witch that allows you to control Leaves \nRight Click to return Leaves");
+            Tooltip.SetDefault("An Ancient book from The Witch that allows you to control Leaves \nLeaves return automatically when mana is missing or when you Reached " + maxProjs + " leaves" + "\nRight Click to return Leaves");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            
         }
 
         public override void SetDefaults()
@@ -48,6 +47,14 @@ namespace Crystals.Content.Items.Foresta.Weapons.Magic.Photosynthesia
         }
 
         public List<Projectile> projectiles = new List<Projectile>();
+
+        public override void OnMissingMana(Player player, int neededMana)
+        {
+            foreach (var projs in projectiles)
+            {
+                projs.ai[1] = 1;
+            }
+        }
 
         public override bool CanUseItem(Player player)
         {
@@ -92,6 +99,12 @@ namespace Crystals.Content.Items.Foresta.Weapons.Magic.Photosynthesia
 
         class MagicLeaves : ModProjectile
         {
+            
+            public override void SetStaticDefaults()
+            {
+                DisplayName.SetDefault("Magic Leaves");
+            }
+            
             public override void SetDefaults()
             {
                 Projectile.Size = new Vector2(18 , 28);
@@ -138,6 +151,7 @@ namespace Crystals.Content.Items.Foresta.Weapons.Magic.Photosynthesia
                 {
                     Player owner = Main.player[Projectile.owner];
                     Projectile.tileCollide = false;
+                    Projectile.penetrate = -1;
                     if (Projectile.Distance(owner.Center) <= ManaRegDistance)
                     {
                         for (int i = 0; i < 10; i++)
