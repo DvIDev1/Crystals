@@ -35,8 +35,8 @@ namespace Crystals.Content.Items.Foresta.Weapons.Ranged.Fall
             Item.shootSpeed = 14.0f;
         }
 
-        public int spreadMax = 11; //Maximal Projectile Spread
-        public int spreadMin = -10; //Minimum Projectile Spread
+        public int spreadMax = 22; //Maximal Projectile Spread
+        public int spreadMin = -20; //Minimum Projectile Spread
 
         public int ArrowUse = 10; //The amount of uses you need for the Neon Arrow to be shot
 
