@@ -156,7 +156,7 @@ namespace Crystals.Content.Items.Foresta.Weapons.Magic.Photosynthesia
                     {
                         for (int i = 0; i < 10; i++)
                         {
-                            Vector2 pos = Projectile.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (Projectile.width + Projectile.height)/2;
+                            Vector2 pos = owner.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (Projectile.width + Projectile.height)/2;
                             int dust = Dust.NewDust(pos, 16, 16, 61);
                         }
                         Projectile.Kill();
