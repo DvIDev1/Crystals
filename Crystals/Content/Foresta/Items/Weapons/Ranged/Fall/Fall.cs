@@ -2,6 +2,7 @@ using System;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -99,9 +100,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Fall
 
         class NeonArrow : ModProjectile
         {
-            
-            //TODO Dust Collider
-            
+
             public override void SetStaticDefaults()
             {
                 DisplayName.SetDefault("Neon Arrow");
@@ -138,13 +137,19 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Fall
             {
                 target.AddBuff(BuffID.Venom , BuffTime*30);
             }
+            
+            public override void Kill(int timeLeft) {
+                // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
+                Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            }
+            
+            
         }
         
         class LeafArrow : ModProjectile
         {
-            
-            //TODO Dust Collider
-            
+
             public override void SetStaticDefaults()
             {
                 DisplayName.SetDefault("Leaf Arrow");
@@ -169,6 +174,12 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Fall
             public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
             {
                 target.AddBuff(BuffID.Poisoned , BuffTime*60);
+            }
+            
+            public override void Kill(int timeLeft) {
+                // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
+                Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             }
         }
     }
