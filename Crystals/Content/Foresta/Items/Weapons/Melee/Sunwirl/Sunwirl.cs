@@ -15,7 +15,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
     {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("Sunwirl");
-            Tooltip.SetDefault("Every 3rd hit the Yoyo applies Flammable if the Enemy already has Flammable on the 3rd hit they get Ignited instead if they have both Flammable and Burn they will Give off Smokes");
+            Tooltip.SetDefault("Every 3rd hit the Yoyo applies Flammable if the Enemy already has Flammable on the 3rd hit they get Ignited instead if they have both Flammable and Burn they will Give off Smokes \n Is this too long? maybe do i keep this Yes!");
             
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 15;
@@ -36,7 +36,8 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
             Item.channel = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            //Todo Item Value and Price 
+            Item.value = Item.sellPrice(0, 5, 75, 0);
+            Item.buyPrice(0, 7, 25, 0);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SunwirlYoyo>();
         }
@@ -66,6 +67,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
             }
 
             private int hits;
+            private int maxhits = 3;
 
             public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
             {
@@ -77,7 +79,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
                     target.AddBuff(BuffID.OnFire , 60*3);
                 }
                 
-                if (hits == 3)
+                if (hits == maxhits)
                 {
 
                     if (target.HasBuff(ModContent.BuffType<Flammable>()))
@@ -212,8 +214,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
 
                     class SmokeCreate : GlobalNPC
                     {
-
-                        // System.IndexOutOfRangeException: Index was outside the bounds of the array. Bug I think its Fixed for now
                         public static int lastDamager;
 
                         public override void AI(NPC npc)
