@@ -15,7 +15,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
     {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("Sunwirl");
-            Tooltip.SetDefault("Every 3rd hit the Yoyo applies Flammable if the Enemy already has Flammable on the 3rd hit they get Ignited instead if they have both Flammable and Burn they will Give off Smokes \n Is this too long? maybe do i keep this Yes!");
+            Tooltip.SetDefault("Every 3rd hit the Yoyo applies Flammable if the Enemy already has Flammable on the 3rd hit they get Ignited instead if they have both Flammable and Burn they will Give off Smokes \nIs this too long? maybe do i keep this Yes!");
             
             ItemID.Sets.Yoyo[Item.type] = true;
             ItemID.Sets.GamepadExtraRange[Item.type] = 15;
