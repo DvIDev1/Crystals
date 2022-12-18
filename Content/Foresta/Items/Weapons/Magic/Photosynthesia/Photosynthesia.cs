@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Crystals.Core.TrailSystem;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -41,8 +42,8 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
         }
 
         private int projcount = 2; // The amount of Projectiles shot
-        private int spread = 24; //The spread from 0 to *(The value you inserted)* when the Projectile is shot 
-        private int maxProjs = 13; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
+        private int spread = 22; //The spread from 0 to *(The value you inserted)* when the Projectile is shot 
+        private int maxProjs = 30; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
 
         public override bool MagicPrefix()
         {
@@ -119,16 +120,18 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                 Projectile.penetrate = 3; //Maximal amount of times the Projectiles can damage anything (If t)
             }
             
-            public bool collided;
+            private bool collided;
             private int hits;
 
-            public bool ret = false;
-            public bool hit = false;
-            public NPC lastHit;
+            private bool ret = false;
+            private bool hit = false;
+            private NPC lastHit;
+            public bool deadleaf = false;
 
-            public int manaReg = 2; //How much mana gets regenerated when the  Projectile returns to the Owner
-            public int OnHitManaReg = 2; //How much mana gets regenerated OnHit when the Projectile is in the return state (Only works once)
-            public float ManaRegDistance = 100f; //The Distance from which the returning Arrows can give you Mana
+            private int manaReg = 2; //How much mana gets regenerated when the  Projectile returns to the Owner
+            private int OnHitManaReg = 2; //How much mana gets regenerated OnHit when the Projectile is in the return state (Only works once)
+            private float ManaRegDistance = 100f; //The Distance from which the returning Arrows can give you Mana
+            
 
             public override void AI()
             {
@@ -150,7 +153,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                         Projectile.velocity.Y = 16f;
                     }
                 }
-                else
+                else if(deadleaf != true)
                 {
                     Player owner = Main.player[Projectile.owner];
                     Projectile.tileCollide = false;
@@ -161,8 +164,9 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                         {
                             Vector2 pos = owner.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (owner.width + owner.height)/2;
                             int dust = Dust.NewDust(pos, 16, 16, 61);
+                            deadleaf = true;
                         }
-                        Projectile.Kill();
+                        
                     }
 
                     if (Projectile.Distance(owner.Center) >= 1000f)
@@ -177,6 +181,50 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                         Projectile.velocity += Projectile.DirectionTo(owner.Center) / 2; 
                     }
                 }
+                else
+                {
+                    Projectile.alpha++;
+                    Projectile.tileCollide = true;
+                    Projectile.ai[0] += 1f;
+                    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+                    if (Projectile.ai[0] >= 15f)
+                    {
+                        Projectile.ai[0] = 15f;
+                        Projectile.velocity.Y = Projectile.velocity.Y + 0.8f;
+                    }
+                    if (Projectile.velocity.Y > 16f)
+                    {
+                        Projectile.velocity.Y = 16f;
+                    }
+                    if (Projectile.alpha >= 250)
+                    {
+                        Projectile.Kill();
+                    }
+                }
+            }
+            
+            public PrimitiveTrail trail = new PrimitiveTrail();
+            public List<Vector2> oldPositions = new List<Vector2>();
+            public override bool PreDraw(ref Color lightColor)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin();
+
+                lightColor = Color.White;
+
+                Color color = Color.SeaGreen;
+
+                Vector2 pos = (Projectile.Center).RotatedBy(Projectile.rotation, Projectile.Center);
+
+                oldPositions.Add(pos);
+                while (oldPositions.Count > 30)
+                    oldPositions.RemoveAt(0);
+
+                trail.Draw(color, pos, oldPositions, 2.8f - Projectile.alpha / 100);
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin();
+                return true;
             }
 
             public override bool OnTileCollide(Vector2 oldVelocity)
@@ -220,10 +268,8 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                 }
                 lastHit = target;
             }
-            
-            
-            
-            
+
+
             public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
             {
                 hits++;
