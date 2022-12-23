@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using Crystals.Core.TrailSystem;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +27,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
             Item.crit = 13;
             Item.DamageType = DamageClass.Magic;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.damage = 17;
+            Item.damage = 19;
             Item.useTime = 19;
             Item.useAnimation = 19;
             Item.knockBack = KnockbackValue.Noknockback;
@@ -43,7 +45,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
 
         private int projcount = 2; // The amount of Projectiles shot
         private int spread = 22; //The spread from 0 to *(The value you inserted)* when the Projectile is shot 
-        private int maxProjs = 30; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
+        private int maxProjs = 11; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
 
         public override bool MagicPrefix()
         {
@@ -122,20 +124,16 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
             
             private bool collided;
             private int hits;
-
-            private bool ret = false;
+            
             private bool hit = false;
             private NPC lastHit;
             public bool deadleaf = false;
-
-            private int manaReg = 2; //How much mana gets regenerated when the  Projectile returns to the Owner
-            private int OnHitManaReg = 2; //How much mana gets regenerated OnHit when the Projectile is in the return state (Only works once)
-            private float ManaRegDistance = 100f; //The Distance from which the returning Arrows can give you Mana
+            
+            private float Distance = 50f; //The Distance from which the returning Projectiles Vanish
             
 
             public override void AI()
             {
-                ret = Projectile.ai[1] == 1;
                 if (Projectile.ai[1] != 1)
                 {
                     if (!collided)
@@ -158,7 +156,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                     Player owner = Main.player[Projectile.owner];
                     Projectile.tileCollide = false;
                     Projectile.penetrate = -1;
-                    if (Projectile.Distance(owner.Center) <= ManaRegDistance)
+                    if (Projectile.Distance(owner.Center) <= Distance)
                     {
                         for (int i = 0; i < 10; i++)
                         {
@@ -169,24 +167,22 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                         
                     }
 
-                    if (Projectile.Distance(owner.Center) >= 1000f)
+                    if (Projectile.Distance(owner.Center) >= 1500f)
                     {
                         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-                        Projectile.velocity = Projectile.DirectionTo(owner.Center) * 5;
-                        
-                    }
-                    else
-                    {
+                        Projectile.velocity = Projectile.DirectionTo(owner.Center) * Projectile.Distance(owner.Center) * 0.01f;
+                    }else {
                         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-                        Projectile.velocity += Projectile.DirectionTo(owner.Center) / 2; 
+                        Projectile.velocity += Projectile.DirectionTo(owner.Center) /3; 
                     }
+                    
                 }
                 else
                 {
-                    Projectile.alpha++;
+                    Projectile.alpha +=  2;
                     Projectile.tileCollide = true;
                     Projectile.ai[0] += 1f;
-                    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+                    if (!collided) Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
                     if (Projectile.ai[0] >= 15f)
                     {
                         Projectile.ai[0] = 15f;
@@ -220,7 +216,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                 while (oldPositions.Count > 30)
                     oldPositions.RemoveAt(0);
 
-                trail.Draw(color, pos, oldPositions, 2.8f - Projectile.alpha / 100);
+                trail.Draw(color, pos, oldPositions, 1.4f);
 
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin();
@@ -242,31 +238,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                     Vector2 pos = Projectile.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (Projectile.width + Projectile.height)/2;
                     int dust = Dust.NewDust(pos, 16, 16, 61);
                 }
-                owner.statMana += manaReg;
-                owner.ManaEffect(manaReg);
-            }
-
-            public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-            {
-                if (ret)
-                {
-                    if (target == lastHit)
-                    {
-                        if (!hit)
-                        {
-                            Player owner = Main.player[Projectile.owner];
-                            for (int i = 0; i < 10; i++)
-                            {
-                                Vector2 pos = Projectile.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (Projectile.width + Projectile.height)/2;
-                                int dust = Dust.NewDust(pos, 16, 16, 61);
-                            }
-                            owner.statMana += OnHitManaReg;
-                            owner.ManaEffect(OnHitManaReg);
-                            hit = true;
-                        }
-                    }
-                }
-                lastHit = target;
             }
 
 

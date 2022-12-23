@@ -195,7 +195,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
                     }
                     
                     
-                    }
+                }
                 
                 class White_Smoke : ModProjectile
                 {
@@ -241,10 +241,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
                     }
                 }
             }
-
             
-            
-
             public override void PostAI()
             {
                 if (Main.rand.NextBool())
