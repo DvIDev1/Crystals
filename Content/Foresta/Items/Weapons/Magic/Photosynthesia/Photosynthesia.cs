@@ -47,6 +47,13 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
         private int spread = 22; //The spread from 0 to *(The value you inserted)* when the Projectile is shot 
         private int maxProjs = 11; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
 
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale,
+            int whoAmI)
+        {
+            Lighting.AddLight(Item.Center, TorchID.Green);
+            return true;
+        }
+
         public override bool MagicPrefix()
         {
             return true;
@@ -64,7 +71,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<MagicLeaves>()] <= maxProjs + 1;
+            return player.ownedProjectileCounts[ModContent.ProjectileType<MagicLeaves>()] <= maxProjs;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
@@ -128,12 +135,14 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
             private bool hit = false;
             private NPC lastHit;
             public bool deadleaf = false;
+            private bool ret;
             
             private float Distance = 50f; //The Distance from which the returning Projectiles Vanish
             
 
             public override void AI()
             {
+                ret = Projectile.ai[1] == 1;
                 if (Projectile.ai[1] != 1)
                 {
                     if (!collided)
@@ -245,6 +254,15 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
             {
                 hits++;
                 damage /= hits;
+                if (ret)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 pos = target.Center + Vector2.One.RotatedBy(MathHelper.TwoPi / 10 * i) * (target.width + target.height)/2;
+                        int dust = Dust.NewDust(pos, 16, 16, 61);
+                        deadleaf = true;
+                    }
+                }
             }
 
             public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

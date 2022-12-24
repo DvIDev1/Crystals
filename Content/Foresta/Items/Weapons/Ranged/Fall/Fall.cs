@@ -48,7 +48,8 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Fall
         public int ArrowUse = 10; //The amount of uses you need for the Neon Arrow to be shot
 
         public int uses;
-
+        
+        
         public override bool RangedPrefix()
         {
             return true;

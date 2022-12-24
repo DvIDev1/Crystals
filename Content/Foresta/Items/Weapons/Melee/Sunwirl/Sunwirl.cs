@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Crystals.Core.TrailSystem;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,6 +42,23 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
             Item.buyPrice(0, 7, 25, 0);
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<SunwirlYoyo>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale,
+            int whoAmI)
+        {
+            if (Main.rand.NextFloat() < 0.09f)
+            {
+                Dust dust;
+                dust = Main.dust[Terraria.Dust.NewDust(Item.Center, Item.width, Item.height, 6, 0f, 0f, 0, new Color(255,255,255), 1f)];
+            }
+
+            return true;
         }
 
         class SunwirlYoyo : ModProjectile
@@ -147,7 +166,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
                     }
 
                 }
-                
+
 
                 class Smoke : ModProjectile
                 {
