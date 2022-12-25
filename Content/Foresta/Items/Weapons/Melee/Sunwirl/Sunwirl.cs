@@ -55,7 +55,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
             if (Main.rand.NextFloat() < 0.09f)
             {
                 Dust dust;
-                dust = Main.dust[Terraria.Dust.NewDust(Item.Center, Item.width, Item.height, 6, 0f, 0f, 0, new Color(255,255,255), 1f)];
+                dust = Main.dust[Terraria.Dust.NewDust(Item.position, Item.width, Item.height, 6, 0f, 0f, 0, new Color(255,255,255), 1f)];
             }
 
             return true;

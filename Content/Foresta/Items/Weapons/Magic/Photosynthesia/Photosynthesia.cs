@@ -45,7 +45,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
 
         private int projcount = 2; // The amount of Projectiles shot
         private int spread = 22; //The spread from 0 to *(The value you inserted)* when the Projectile is shot 
-        private int maxProjs = 11; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
+        private int maxProjs = 12; // Maximal amount of Projectiles the Owner of the Weapon is allowed to shoot/ is allowed to be in the world fot he Owner
 
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale,
             int whoAmI)
@@ -71,13 +71,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<MagicLeaves>()] <= maxProjs;
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
-            int damage, float knockback)
-        {
-
             if (player.ownedProjectileCounts[ModContent.ProjectileType<MagicLeaves>()] >= maxProjs)
             {
                 foreach (var projs in projectiles)
@@ -85,7 +78,14 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                     projs.ai[1] = 1;
                 }
                 return false;
+                return false;
             }
+            return true;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
+            int damage, float knockback)
+        {
             
             if (player.altFunctionUse == 2)
             {
