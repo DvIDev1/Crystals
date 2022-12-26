@@ -31,7 +31,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
             Item.useTime = 25;
             Item.shootSpeed = 16f;
             Item.knockBack = KnockbackValue.Weakknockback;
-            Item.damage = 13;
+            Item.damage = 19;
             Item.rare = ItemRarityID.LightRed;
 
             Item.DamageType = DamageClass.MeleeNoSpeed;
@@ -71,7 +71,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Sunwirl
                 // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
                 ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 300f;
                 // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
-                ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 11f;
+                ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12f;
             }
 
             public override void SetDefaults()
