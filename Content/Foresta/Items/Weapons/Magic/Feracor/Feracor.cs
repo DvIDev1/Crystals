@@ -1,3 +1,4 @@
+using System;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -98,7 +99,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
 
             if (charge <= MaxCharge)
             {
-                charge +=2;
+                charge++;
             }
 
         }
@@ -114,9 +115,9 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
 
             public override void SetDefaults()
             {
-                Projectile.width = 12;
-                Projectile.height = 7;
-                Projectile.scale = 2.0f;
+                Projectile.width = 14;
+                Projectile.height = 9;
+                Projectile.scale = 1.5f;
                 Projectile.friendly = true;
                 Projectile.ignoreWater = true;
                 Projectile.tileCollide = true;
@@ -134,7 +135,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 Dust dust;
-                Vector2 position = Projectile.Center;
+                Vector2 position = Projectile.position;
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 107, 0f, 0f, 0, new Color(255,255,255), 1f)];
                 if (++Projectile.frameCounter >= 6)
                 {
@@ -150,14 +151,13 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
             public override void SetStaticDefaults()
             {
                 DisplayName.SetDefault("Big Energy Blast");
-                Main.projFrames[Projectile.type] = 4;
+                Main.projFrames[Projectile.type] = 6;
             }
             
             public override void SetDefaults()
             {
-                Projectile.width = 25; 
-                Projectile.height = 15;
-                Projectile.scale = 2.0f;
+                Projectile.width = 38; 
+                Projectile.height = 25;
                 Projectile.friendly = true;
                 Projectile.ignoreWater = true;
                 Projectile.penetrate = 1;
@@ -180,6 +180,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
                         ModContent.ProjectileType<EnergyBlast>(), Projectile.damage / 2, Projectile.knockBack / 2,
                         owner.whoAmI);
                     proj.velocity = proj.DirectionTo(target.Center) * 20f;
+                    proj.CritChance = 25;
                 }
                 
             }
@@ -203,12 +204,23 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
                 Dust dust;
-                Vector2 position = Projectile.Center;
+                Vector2 position = Projectile.position;
+                Player owner = Main.player[Projectile.owner];
                 dust = Main.dust[Terraria.Dust.NewDust(position, Projectile.width, Projectile.height, 107, 0f, 0f, 0, new Color(255,255,255), 1f)];
-                if (++Projectile.frameCounter >= 6)
+                if (++Projectile.frameCounter >= 8)
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
+                }
+
+                if (Projectile.Distance(owner.Center) >= 1000)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 pos = owner.Center + Vector2.One.RotatedBy((MathHelper.TwoPi / 10 * i) + 90f) * 1000;
+                        Dust.NewDustPerfect(pos, 107);
+                        Projectile.Kill();
+                    }  
                 }
             }
 

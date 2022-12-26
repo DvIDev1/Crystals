@@ -78,7 +78,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                     projs.ai[1] = 1;
                 }
                 return false;
-                return false;
             }
             return true;
         }
