@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Crystals.Core.TrailSystem;
+using Crystals.Core.Systems.TrailSystem;
 using Crystals.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
