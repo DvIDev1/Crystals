@@ -262,6 +262,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Photosynthesia
                         deadleaf = true;
                     }
                 }
+
             }
 
             public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

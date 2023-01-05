@@ -245,12 +245,26 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Crusolium
 		        {
 			        return true;
 		        }
+
+		        if (target.townNPC)
+		        {
+			        return false;
+		        }
 		        
 		        return true;
 	        }
 
 	        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 	        {
+		        Player owner = Main.player[Projectile.owner];
+		        owner.AddBuff(ModContent.BuffType<GoldenBoots>() , 60 * 5);
+		        foreach (var ct in Main.combatText)
+		        {
+			        if (ct.text == damage.ToString())
+			        {
+				        ct.color = Color.Yellow;
+			        }
+		        }
 		        hitted.Add(target);
 	        }
 
@@ -318,7 +332,11 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Crusolium
 			        {
 				        return true;
 			        }
-			        
+			        if (target.townNPC)
+			        {
+				        return false;
+			        }
+
 			        return true;
 		        }
 
@@ -326,8 +344,29 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Crusolium
 		        {
 			        hitted.Add(target);
 		        }
-		        
+
 	        }
+	        
+	        
+
+	        class GoldenBoots : ModBuff
+	        {
+		        public override void SetStaticDefaults()
+		        {
+			        DisplayName.SetDefault("Golden Boots");
+			        Description.SetDefault("Makes the User faster but also attracts more foes");
+		        }
+
+		        public override void Update(Player player, ref int buffIndex)
+		        {
+			        Dust.NewDust(player.position, player.width, player.height, 269, -player.velocity.X);
+			        player.aggro += 100;
+			        player.maxRunSpeed += 2.5f;
+			        player.runAcceleration += 0.75f;
+			        player.runSlowdown += 2.5f;
+		        }
+	        }
+	        
         }
         
     }

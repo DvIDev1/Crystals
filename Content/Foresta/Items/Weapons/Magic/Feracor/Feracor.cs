@@ -129,6 +129,15 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
                 {
                     charge += 300;
                 }
+                
+                foreach (var ct in Main.combatText) 
+                {
+                    if (ct.text == damage.ToString())
+                    {
+                        ct.color = Color.ForestGreen;
+                    }
+                }
+                
             }
 
             public override void AI()
@@ -182,7 +191,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
                     proj.velocity = proj.DirectionTo(target.Center) * 20f;
                     proj.CritChance = 25;
                 }
-                
+
             }
 
             public override bool OnTileCollide(Vector2 oldVelocity)

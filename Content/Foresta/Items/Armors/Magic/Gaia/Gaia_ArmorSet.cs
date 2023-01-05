@@ -42,12 +42,14 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
                 {
                     ExtraDamage = 1;
                 }
-
+                
                 damage += ExtraDamage;
                 Player.Heal(ExtraDamage);
-                CombatText.NewText(target.Hitbox, Color.ForestGreen, ExtraDamage);
+
             }
         }
+        
+        
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit,
             ref int hitDirection)
@@ -62,7 +64,6 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
                 damage += ExtraDamage;
                 Player.Heal(ExtraDamage);
-                CombatText.NewText(target.Hitbox, Color.ForestGreen, ExtraDamage);
             }
         }
         
@@ -269,7 +270,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
             public override void SetStaticDefaults()
             {
                 DisplayName.SetDefault("Gaia Passive");
-                Description.SetDefault("Increases Damage by 1% of your max Health");
+                Description.SetDefault("Increases Damage by 1% of your current Health");
                 BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             }
         }

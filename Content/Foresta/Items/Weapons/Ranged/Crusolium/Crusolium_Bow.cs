@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -38,6 +39,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Crusolium
             Item.useAmmo = AmmoID.Arrow;
             Item.shootSpeed = 32f;
             Item.autoReuse = false;
+            Item.crit = 14;
             Item.value = Item.sellPrice(0, 2, 0, 0);
             Item.buyPrice(0, 3, 75, 0);
         }
@@ -60,6 +62,14 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Crusolium
 
     class Crusolium_Arrow : ModProjectile
     {
+        
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Crusolium Arrow");
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
+        }
+        
         public override void SetDefaults()
         {
             Projectile.width = 14;
@@ -111,7 +121,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Crusolium
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
             // Redraw the projectile with the color not influenced by light
-            Vector2 drawOrigin = new Vector2(texture.Width , Projectile.height );
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f , Projectile.height * 0.5f);
             for (int k = 0; k < Projectile.oldPos.Length; k++) {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
                 Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
@@ -121,10 +131,23 @@ namespace Crystals.Content.Foresta.Items.Weapons.Ranged.Crusolium
             return true;
         }
         
+        public override void Kill(int timeLeft) {
+            // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+        }
+        
+        
     }
 
     class GreenMark : ModBuff
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Green Mark");
+            Description.SetDefault("Marks Enemies marked enemies get 50% more damage");
+        }
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             if (Main.rand.NextFloat() < 0.10465116f)
