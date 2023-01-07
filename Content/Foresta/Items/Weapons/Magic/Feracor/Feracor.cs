@@ -129,15 +129,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Magic.Feracor
                 {
                     charge += 300;
                 }
-                
-                foreach (var ct in Main.combatText) 
-                {
-                    if (ct.text == damage.ToString())
-                    {
-                        ct.color = Color.ForestGreen;
-                    }
-                }
-                
             }
 
             public override void AI()

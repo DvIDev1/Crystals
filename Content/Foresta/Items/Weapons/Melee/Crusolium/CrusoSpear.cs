@@ -258,13 +258,6 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Crusolium
 	        {
 		        Player owner = Main.player[Projectile.owner];
 		        owner.AddBuff(ModContent.BuffType<GoldenBoots>() , 60 * 5);
-		        foreach (var ct in Main.combatText)
-		        {
-			        if (ct.text == damage.ToString())
-			        {
-				        ct.color = Color.Yellow;
-			        }
-		        }
 		        hitted.Add(target);
 	        }
 
@@ -332,6 +325,7 @@ namespace Crystals.Content.Foresta.Items.Weapons.Melee.Crusolium
 			        {
 				        return true;
 			        }
+			        
 			        if (target.townNPC)
 			        {
 				        return false;
