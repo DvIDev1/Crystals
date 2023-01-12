@@ -92,8 +92,8 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
             public override void SetDefaults()
             {
-                Item.width = 26;
-                Item.height = 20;
+                Item.width = 40;
+                Item.height = 40;
                 Item.defense = 5;
                 Item.rare = ItemRarityID.Green;
             }
@@ -112,7 +112,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
             public override void UpdateArmorSet(Player player)
             {
-                player.setBonus = "Passive: When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
+                player.setBonus = "When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
                                   " Seconds and then goes on Cooldown for " + cooldownDuration + " Seconds";
             }
 
@@ -139,7 +139,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
         {
             public override void SetStaticDefaults()
             {
-                DisplayName.SetDefault("Gaia Hat");
+                DisplayName.SetDefault("Gaia Robe");
                 Tooltip.SetDefault("Increased Armor Penetration by 5% \nIncreased maximum mana by 15 \nIncreased Magic damage by 5%");
 
                 CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -152,8 +152,8 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
             public override void SetDefaults()
             {
-                Item.width = 26;
-                Item.height = 20;
+                Item.width = 40;
+                Item.height = 40;
                 Item.defense = 7;
                 Item.rare = ItemRarityID.Green;
             }
@@ -173,7 +173,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
             public override void UpdateArmorSet(Player player)
             {
-                player.setBonus = "Passive: When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
+                player.setBonus = "When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
                                   " Seconds and then goes on Cooldown for " + cooldownDuration + " Seconds";
             }
 
@@ -199,7 +199,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
         {
             public override void SetStaticDefaults()
             {
-                DisplayName.SetDefault("Gaia Hat");
+                DisplayName.SetDefault("Gaia Skirt");
                 Tooltip.SetDefault("Increased Armor Penetration by 1% \nIncreased maximum mana by 20 \nIncreased Magic damage by 3%");
 
                 CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -212,7 +212,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
 
             public override void SetDefaults()
             {
-                Item.width = 26;
+                Item.width = 32;
                 Item.height = 20;
                 Item.defense = 6;
                 Item.rare = ItemRarityID.Green;
@@ -232,7 +232,7 @@ namespace Crystals.Content.Foresta.Items.Armors.Magic.Gaia
         
             public override void UpdateArmorSet(Player player)
             {
-                player.setBonus = "Passive: When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
+                player.setBonus = "When you hit an Enemy you deal an Extra 1% Current Health Damage and get Healed for the Bonus Damage for " + activeDuration +
                                   " Seconds and then goes on Cooldown for " + cooldownDuration + " Seconds";
             }
             
