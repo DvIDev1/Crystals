@@ -1,9 +1,9 @@
 using System;
 using Terraria.ModLoader;
 
-namespace Crytsals
+namespace Crystals
 {
-	public class Crytsals : Mod
+	public class Crystals : Mod
 	{
 
 	}
