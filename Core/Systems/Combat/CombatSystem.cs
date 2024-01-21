@@ -18,6 +18,22 @@ public class CombatSystem : ModPlayer
     
     public const float RecoverSpeed = 0.05f;
 
+    public static bool ImGrayDabaDee;
+
+    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+    {
+        if(ImGrayDabaDee == true)
+        {
+            r = 0.2f;
+            g = 0.2f;
+            b = 0.2f;
+        }
+        else
+        {
+            fullBright = true;
+        }
+    }
+
     public override void PreUpdate()
     {
         LastHitTime += RecoverSpeed;
