@@ -19,7 +19,6 @@
     <Folder Include="Assets\Items\Pet\" />
     <Folder Include="Assets\Items\Tools\" />
     <Folder Include="Assets\Misc\" />
-    <Folder Include="Assets\Shaders\" />
     <Folder Include="Assets\Tiles\" />
     <Folder Include="Assets\NPCs\" />
     <Folder Include="Assets\Items\Weapons\" />

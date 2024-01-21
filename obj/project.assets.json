@@ -36,9 +36,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\itali\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Crystals\\Crytsals.csproj",
+      "projectUniqueName": "C:\\Users\\itali\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Crystals\\Crystals.csproj",
       "projectName": "Crytsals",
-      "projectPath": "C:\\Users\\itali\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Crystals\\Crytsals.csproj",
+      "projectPath": "C:\\Users\\itali\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Crystals\\Crystals.csproj",
       "packagesPath": "C:\\Users\\itali\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\itali\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Crystals\\obj\\",
       "projectStyle": "PackageReference",

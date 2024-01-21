@@ -1,0 +1,12 @@
+Mods: {
+	Crystals: {
+		Items: {
+			Testarang: {
+				DisplayName: Testarang
+				Tooltip: ""
+			}
+		}
+
+		Projectiles.TestarangProjectile.DisplayName: Testarang Projectile
+	}
+}
