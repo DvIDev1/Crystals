@@ -37,6 +37,7 @@ namespace Crytsals.Core.Systems
 
         public const string UI = Misc + "UI/";
         public const string Menus = Misc + "Menus/";
+        public const string Mechanics = Misc + "Mechanics/";
 
         public const string Banners = Tiles + "Banners/";
     }
