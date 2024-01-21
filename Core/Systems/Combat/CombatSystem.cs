@@ -1,47 +1,132 @@
 using System;
+using Crytsals.Core.Systems;
 using Crytsals.Helpers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crytsals.Core.Systems.Combat;
+namespace Crystals.Core.Systems.Combat;
 
 public class CombatSystem : ModPlayer
 {
-
-    public float Stamina = 100;
-
-    public float Balance = 0f;
-
-    public float LastHitTime = 0;
     
-    public const float RecoverSpeed = 0.05f;
+    
+    #region Stance
+
+    public int StanceHealthMax => (Player.statLifeMax + Player.statDefense.Positive) / 4;
+
+    public int StanceHealth;
+
+    public float LastHitTime;
+
+    public bool Stunned;
+    
+    public int StunCooldown;
 
     public override void PreUpdate()
     {
-        LastHitTime += RecoverSpeed;
-        LastHitTime = MathHelper.Clamp(LastHitTime, 0, 1);
-        //Balance = MathHelper.Lerp(Balance, 0, LastHitTime);
+        LastHitTime++;
+
+        if (Stunned)
+        {
+            StunCooldown++;
+        }
         
-        Main.NewText(Player.fullRotation  / 2);
+        if (StunCooldown >= 120)
+        {
+            StanceHealth = StanceHealthMax;
+            Stunned = false;
+            StunCooldown = 0;
+        }
     }
 
-    public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+    public override void SetControls()
     {
-        LastHitTime = 0;
-        Balance += ((hurtInfo.Damage * (hurtInfo.Knockback * 0.2f)) * hurtInfo.HitDirection);
-
+        if (Stunned)
+        {
+            Player.controlJump = false;
+            Player.controlDown = false;
+            Player.controlLeft = false;
+            Player.controlRight = false;
+            Player.controlUp = false;
+            Player.controlUseItem = false;
+            Player.controlUseTile = false;
+            Player.controlThrow = false;
+            Player.gravDir = 1f;
+        }
     }
 
-    public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+    #region StanceRecover
+
+    public override void OnEnterWorld()
     {
-        LastHitTime = 0;
-        Balance += (hurtInfo.Damage * (hurtInfo.Knockback * 0.1f)) * hurtInfo.HitDirection;
+        StanceHealth = StanceHealthMax;
     }
+
+    public override void OnRespawn()
+    {
+        StanceHealth = StanceHealthMax;
+    }
+
+    public override void PlayerConnect()
+    {
+        StanceHealth = StanceHealthMax;
+    }
+
+    #endregion
+
+    public void DamageStance(int amount)
+    {
+        StanceHealth = StanceHealth - amount >= 0 ? StanceHealth - amount : 0;
+    }
+    
+
+    public override void OnHurt(Player.HurtInfo info)
+    {
+
+        LastHitTime = 0;
+        DamageStance(info.Damage / 2);
+
+    }
+
+    public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+    {
+        
+        if (Stunned)
+        {
+            modifiers.Knockback *= 1.25f;
+            modifiers.FinalDamage *= 1.5f;
+            Stunned = false;
+            StanceHealth = StanceHealthMax;
+        }
+        
+        if (StanceHealth <= 0)
+        {
+            Stunned = true;
+            StunCooldown = 0;
+        }
+    }
+
+    #endregion
+
+    #region Visuals
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
-        drawInfo.drawPlayer.fullRotation = 0f.AngleLerp(Balance, EaseFunctions.EaseIn(LastHitTime));
+        
+        //Stun Bar
+        Vector2 drawPos = drawInfo.drawPlayer.Top;
+        Vector2 drawOrigin = drawPos / 2;
+            
+        Main.EntitySpriteDraw(ModContent.Request<Texture2D>(AssetDir.Mechanics + "StunBar").Value , drawInfo.drawPlayer.Top , null , 
+            Color.White, 0 , drawOrigin , 1f  , SpriteEffects.None);
+        
     }
+
+    #endregion
+    
+    
 }
