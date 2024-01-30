@@ -8,5 +8,6 @@ Mods: {
 		}
 
 		Projectiles.TestarangProjectile.DisplayName: Testarang Projectile
+		"Keybinds.Use Technique .DisplayName": Use  Technique
 	}
 }

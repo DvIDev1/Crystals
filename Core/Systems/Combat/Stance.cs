@@ -1,24 +1,14 @@
-using System;
-using System.Drawing;
-using Crytsals.Core.Systems;
-using Crytsals.Helpers;
+﻿using Crytsals.Core.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Color = Microsoft.Xna.Framework.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Crystals.Core.Systems.Combat;
 
-public class CombatSystem : ModPlayer
+public class Stance : ModPlayer
 {
-    
-    
-    #region Stance
-
     public int StanceHealthMax => (Player.statLifeMax + Player.statDefense.Positive * 2) / 4;
 
     public int StanceHealth;
@@ -53,7 +43,7 @@ public class CombatSystem : ModPlayer
             StunCooldown++;
         }
         
-        if (StunCooldown >= 120)
+        if (StunCooldown >= 180)
         {
             StanceHealth = StanceHealthMax;
             Stunned = false;
@@ -109,7 +99,7 @@ public class CombatSystem : ModPlayer
     public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
     {
         LastHitTime = 0;
-        DamageStance(hurtInfo.Damage / 4);
+        DamageStance(hurtInfo.Damage / 3);
     }
 
     public override void ModifyHurt(ref Player.HurtModifiers modifiers)
@@ -129,11 +119,7 @@ public class CombatSystem : ModPlayer
             StunCooldown = 0;
         }
     }
-
-    #endregion
-
-    #region Visuals
-
+    
     public float[] Timer = new[] { 0f, 1f, 2f };
 
     public int StunFrame = 0;
@@ -188,7 +174,4 @@ public class CombatSystem : ModPlayer
         
     }
 
-    #endregion
-    
-    
 }
