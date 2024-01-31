@@ -36,3 +36,9 @@
 /obj/Debug/net6.0/Crytsals.pdb
 /obj/project.assets.json
 /obj/project.nuget.cache
+/bin/Debug/net6.0/Crystals.deps.json
+/bin/Debug/net6.0/Crystals.dll
+/bin/Debug/net6.0/Crystals.pdb
+/bin/Debug/net6.0/Crytsals.deps.json
+*.dll
+*.pdb

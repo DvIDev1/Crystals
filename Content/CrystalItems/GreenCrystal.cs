@@ -1,5 +1,5 @@
 ﻿using Crystals.Core.Systems;
-using Crytsals.Core.Systems;
+using Crystals.Core.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

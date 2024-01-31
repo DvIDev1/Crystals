@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crytsals.Core.Systems
+namespace Crystals.Core.Systems
 {
     internal class AssetDir
     {

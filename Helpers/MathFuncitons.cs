@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Crytsals.Helpers;
+namespace Crystals.Helpers;
 
 public static class MathFunctions
 {
