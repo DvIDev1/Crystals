@@ -1,10 +1,10 @@
-﻿using Crytsals.Core.Systems;
+﻿using Crystals.Core.Systems;
 using System.Diagnostics.Metrics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crytsals.Content
+namespace Crystals.Content
 {
     internal class Testarang : ModItem 
     {

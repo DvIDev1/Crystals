@@ -5,6 +5,21 @@ Mods: {
 				DisplayName: Testarang
 				Tooltip: ""
 			}
+
+			GreenCrystal: {
+				DisplayName: Green Crystal
+				Tooltip: ""
+			}
+
+			RedCrystal: {
+				DisplayName: Red Crystal
+				Tooltip: ""
+			}
+
+			Technique: {
+				DisplayName: Technique
+				Tooltip: ""
+			}
 		}
 
 		Projectiles.TestarangProjectile.DisplayName: Testarang Projectile

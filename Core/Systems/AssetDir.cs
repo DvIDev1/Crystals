@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crytsals.Core.Systems
+namespace Crystals.Core.Systems
 {
     internal class AssetDir
     {
@@ -29,6 +29,8 @@ namespace Crytsals.Core.Systems
         public const string Tools = Items + "Tools/";
         public const string Vanity = Items + "Vanity/";
         public const string Weapons = Items + "Weapons/";
+        public const string CrystalItems = Items + "CrystalItemAssets/";
+        public const string Techniques = Items + "TechniquesAssets/";
 
         #endregion
 

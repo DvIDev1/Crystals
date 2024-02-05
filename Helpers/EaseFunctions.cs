@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Crytsals.Helpers;
+namespace Crystals.Helpers;
 
 public class EaseFunctions
 {

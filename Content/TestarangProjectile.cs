@@ -1,11 +1,11 @@
-﻿using Crytsals.Core.Systems;
+﻿using Crystals.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crytsals.Content
+namespace Crystals.Content
 {
     internal class TestarangProjectile : ModProjectile
     {
