@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Terraria;
 
-namespace Crystals.Core.Systems.Combat;
+namespace Crystals.Core.Systems.Combat.Techniques;
 
 public abstract class Technique
 {
@@ -24,18 +24,39 @@ public abstract class Technique
         return Duration();
     }
 
-    public float Time;
+    public bool canDodge;
 
-    public virtual void Update()
+    public virtual int Cooldown()
     {
-        Time++;
+        return Cooldown();
     }
 
-    public bool InUse;
-
-    public virtual void StartTechnique()
+    public float Time
     {
-        Main.NewText(Name + " Technique Used");
+        get => StartTime() + Duration() + Cooldown();
+        set => throw new System.NotImplementedException();
+    }
+
+    public virtual void PreUpdate() { }
+
+    public virtual void PostUpdate() { }
+    
+    public void Update()
+    {
+        PreUpdate();
+        Time++;
+        canDodge = Time >= StartTime();
+        PostUpdate();
+    }
+
+    public virtual void OnStartTechnique()
+    {
+        
+    }
+    
+    public void StartTechnique()
+    {
+        OnStartTechnique();
     }
 
     public virtual void Dodge()

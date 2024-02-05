@@ -10,16 +10,20 @@ public class TestTechnique : Technique
 
     public override int StartTime() => 0;
 
-    public override int Duration() => 60;
+    public override int Duration() => 180;
 
-    public override void StartTechnique()
+    public override void PostUpdate()
     {
-        InUse = true;
-        Main.NewText(Name() + " Technique");
+        Main.NewText("Process");
+    }
+
+    public override void OnStartTechnique()
+    {
+        
     }
 
     public override void Dodge()
     {
-        base.Dodge();
+        Main.NewText("Dodged");
     }
 }
