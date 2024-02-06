@@ -20,7 +20,7 @@ public class TechniqueHandler : ModPlayer
     
     
     
-    public override void PreUpdateMovement()
+    /*public override void PreUpdateMovement()
     {
         if (UseTechniqueKey.JustPressed)
         {
@@ -28,7 +28,7 @@ public class TechniqueHandler : ModPlayer
             Main.NewText(CurrentTechnique.Time);
         }
         
-        CurrentTechnique.Update();        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        //CurrentTechnique.Update();        // ReSharper disable once CompareOfFloatsByEqualityOperator
         if (CurrentTechnique.Time == CurrentTechnique.StartTime() + CurrentTechnique.Duration())
         {
             Main.NewText("False");
@@ -39,7 +39,7 @@ public class TechniqueHandler : ModPlayer
     {
         
         
-    }
+    }*/
 
     public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
     {

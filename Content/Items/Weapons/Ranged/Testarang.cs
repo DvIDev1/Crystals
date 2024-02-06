@@ -1,10 +1,10 @@
-﻿using Crystals.Core.Systems;
-using System.Diagnostics.Metrics;
+﻿using Crystals.Content.Projectiles;
+using Crystals.Core.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crystals.Content
+namespace Crystals.Content.Items.Weapons.Ranged
 {
     internal class Testarang : ModItem 
     {

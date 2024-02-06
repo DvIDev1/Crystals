@@ -1,11 +1,12 @@
-﻿using Crystals.Core.Systems;
+﻿using Crystals.Content.Items.Weapons.Ranged;
+using Crystals.Core.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crystals.Content
+namespace Crystals.Content.Projectiles
 {
     internal class TestarangProjectile : ModProjectile
     {

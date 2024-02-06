@@ -1,13 +1,7 @@
 ﻿using Crystals.Core.Systems;
-using Crystals.Core.Systems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace Crystals.Content.NewFolder1
+namespace Crystals.Content.Items.Techniques
 {
     internal class Technique : ModItem
     {
