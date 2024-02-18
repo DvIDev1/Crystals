@@ -12,9 +12,7 @@ public class Stance : ModPlayer
     public int StanceHealthMax => (Player.statLifeMax + Player.statDefense.Positive * 2) / 4;
 
     public int StanceHealth;
-
-    public float LastHitTime;
-
+    
     public bool Stunned;
     
     public int StunCooldown;
@@ -31,10 +29,9 @@ public class Stance : ModPlayer
 
     public override void PreUpdate()
     {
-        LastHitTime++;
-
-        if (LastHitTime >= 60*35)
+        if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle)
         {
+            //TODO No instant regen
             StanceHealth = StanceHealthMax;
         }
         
@@ -92,13 +89,11 @@ public class Stance : ModPlayer
 
     public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
     {
-        LastHitTime = 0;
         DamageStance(hurtInfo.Damage / 2);
     }
 
     public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
     {
-        LastHitTime = 0;
         DamageStance(hurtInfo.Damage / 3);
     }
 

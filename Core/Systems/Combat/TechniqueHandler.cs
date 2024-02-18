@@ -33,21 +33,55 @@ public class TechniqueHandler : ModPlayer
         {
             Main.NewText("False");
         }
-    }
-
-    public override void PreUpdate()
-    {
-        
-        
     }*/
 
-    public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+    public bool Blocking;
+
+    public override void SetControls()
     {
-        return !CurrentTechnique.canDodge;
+        if (Blocking)
+        {
+            Player.controlJump = false;
+            Player.controlDown = false;
+            Player.controlLeft = false;
+            Player.controlRight = false;
+            Player.controlUp = false;
+            Player.controlUseItem = false;
+            Player.controlUseTile = false;
+            Player.controlThrow = false;
+        }
     }
 
-    public override bool CanBeHitByProjectile(Projectile proj)
+    public override void PostUpdate()
     {
-        return !CurrentTechnique.canDodge;
+        switch (CurrentTechnique.TechniqueType())
+        {
+            
+            case TechniqueType.Hold:
+                if (UseTechniqueKey.Current)
+                {
+                    Blocking = true;
+                }
+                else Blocking = false;
+                break;
+            
+            case TechniqueType.Press:
+                break;
+
+        }
+        
+    }
+
+    public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+    {
+        if (Blocking)
+        {
+            
+        }
+    }
+
+    public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+    {
+        base.ModifyHitByProjectile(proj, ref modifiers);
     }
 }

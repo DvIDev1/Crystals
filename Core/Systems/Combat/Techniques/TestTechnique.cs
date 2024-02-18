@@ -12,14 +12,11 @@ public class TestTechnique : Technique
 
     public override int Duration() => 180;
 
-    public override void PostUpdate()
-    {
-        Main.NewText("Process");
-    }
+    public override TechniqueType TechniqueType() => Techniques.TechniqueType.Hold;
 
     public override void OnStartTechnique()
     {
-        
+        Main.NewText("Started");
     }
 
     public override void Dodge()
