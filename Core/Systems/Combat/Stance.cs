@@ -29,7 +29,7 @@ public class Stance : ModPlayer
 
     public override void PreUpdate()
     {
-        if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle)
+        if (Player.GetModPlayer<PlayerState>().CurrentState == States.Idle)
         {
             //TODO No instant regen
             StanceHealth = StanceHealthMax;
@@ -85,6 +85,7 @@ public class Stance : ModPlayer
     public void DamageStance(int amount)
     {
         StanceHealth = StanceHealth - amount >= 0 ? StanceHealth - amount : 0;
+        
     }
 
     public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -102,7 +103,7 @@ public class Stance : ModPlayer
         
         if (Stunned)
         {
-            modifiers.Knockback *= 1.25f;
+            modifiers.Knockback *= 2f;
             modifiers.FinalDamage *= 1.5f;
             Stunned = false;
             StanceHealth = StanceHealthMax;

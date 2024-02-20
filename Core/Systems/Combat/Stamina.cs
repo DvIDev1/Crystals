@@ -1,28 +1,32 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace Crystals.Core.Systems.Combat;
 
 public class Stamina : ModPlayer
 {
 
-    public double StatStaminaMax = 100D;
+    public float StatStaminaMax = 100;
 
-    private double StatStamina;
+    public float StatStamina;
 
     public int LastStaminaUse;
 
-    public void ReduceStamina(double amount)
+    public void ReduceStamina(float amount)
     {
-        StatStamina -= amount;
-        
+        StatStamina = StatStamina - amount >= 0 ? StatStamina - amount : 0;
+        LastStaminaUse = 0;
+
     }
 
         public override void PostUpdate()
     {
         //TODO No instant regen
-        if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle)
+        LastStaminaUse++;
+       
+        if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle && LastStaminaUse >= 60*10)
         {
-            
+            StatStamina = StatStaminaMax;
         }
     }
     

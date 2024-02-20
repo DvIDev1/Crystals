@@ -12,9 +12,14 @@ public abstract class Technique
         return Name();
     }
 
-    public virtual int StaminaUse()
+    public virtual float StaminaUse()
     {
         return StaminaUse();
+    }
+    
+    public virtual float StaminaPunish()
+    {
+        return StaminaPunish();
     }
 
     public virtual int StartTime()
@@ -33,16 +38,24 @@ public abstract class Technique
         return Cooldown();
     }
 
+    public virtual float MinimalStamina()
+    {
+        return MinimalStamina();
+    }
+
     public int Time;
 
-    public virtual float DamageReduction()
-    {
-        return DamageReduction(); 
-    }
+    public virtual void Block() { }
+
+    public int TimeInUse;
 
     public virtual void PreUpdate() { }
 
     public virtual void PostUpdate() { }
+
+    public virtual float KnockBackReduction() => 1f;
+
+    public virtual float DamageReduction() => 1f;
     
     public virtual TechniqueType TechniqueType()
     {

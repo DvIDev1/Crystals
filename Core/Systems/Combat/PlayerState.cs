@@ -13,7 +13,6 @@ public class PlayerState : ModPlayer
     public override void PostUpdate()
     {
         LastHitTime++;
-        
         if (LastHitTime <= 60*35)
         {
             CurrentState = States.Combat;
@@ -31,5 +30,20 @@ public class PlayerState : ModPlayer
     public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
     {
         LastHitTime = 0;
+    }
+    
+    public override void OnEnterWorld()
+    {
+        LastHitTime = 60*35;
+    }
+
+    public override void OnRespawn()
+    {
+        LastHitTime = 60*35;
+    }
+
+    public override void PlayerConnect()
+    {
+        LastHitTime = 60*35;
     }
 }
