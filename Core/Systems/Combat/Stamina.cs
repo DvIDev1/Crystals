@@ -27,6 +27,9 @@ public class Stamina : ModPlayer
         if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle && LastStaminaUse >= 60*10)
         {
             StatStamina = StatStaminaMax;
+        }else if (LastStaminaUse >= 60 * 20)
+        {
+            StatStamina = StatStaminaMax;
         }
     }
     
