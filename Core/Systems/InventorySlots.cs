@@ -1,9 +1,9 @@
-﻿using Crystals.Content.NewFolder;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Crystals.Content.Items.Crystals;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
@@ -192,7 +192,7 @@ namespace Crystals.Core.Systems
         public UIImage CrystalImage;
         public override void OnInitialize()
         {
-        CrystalImage = new UIImage(ModContent.Request<Texture2D>("Crystals/Assets/Items/CrystalItemAssets/UI_Inventory_CrystalOnly"));
+        CrystalImage = new UIImage(ModContent.Request<Texture2D>(AssetDir.UI + "UI_Crystal"));
             CrystalImage.Width.Set(30f * 0.85f, 0);
             CrystalImage.Height.Set(30f * 0.85f, 0);
             CrystalImage.Left.Set(348f, 0);
@@ -208,7 +208,7 @@ namespace Crystals.Core.Systems
         public UIImage TechniqueImage;
         public override void OnInitialize()
         {
-            TechniqueImage = new UIImage(ModContent.Request<Texture2D>("Crystals/Assets/Items/TechniquesAssets/Technique"));
+            TechniqueImage = new UIImage(ModContent.Request<Texture2D>(AssetDir.Techniques + "Technique"));
             TechniqueImage.Width.Set(30f * 0.85f, 0);
             TechniqueImage.Height.Set(30f * 0.85f, 0);
             TechniqueImage.Left.Set(395f, 0);

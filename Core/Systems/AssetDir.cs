@@ -29,8 +29,8 @@ namespace Crystals.Core.Systems
         public const string Tools = Items + "Tools/";
         public const string Vanity = Items + "Vanity/";
         public const string Weapons = Items + "Weapons/";
-        public const string CrystalItems = Items + "CrystalItemAssets/";
-        public const string Techniques = Items + "TechniquesAssets/";
+        public const string CrystalItems = Items + "Crystals/";
+        public const string Techniques = Items + "Techniques/";
 
         #endregion
 

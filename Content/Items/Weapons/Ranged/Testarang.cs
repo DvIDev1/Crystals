@@ -1,21 +1,17 @@
-﻿using Crystals.Core.Systems;
-using Microsoft.Xna.Framework;
+﻿using Crystals.Content.Projectiles;
+using Crystals.Core.Systems;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Crystals.Content
+namespace Crystals.Content.Items.Weapons.Ranged
 {
-    internal class Testarang : ModItem
+    internal class Testarang : ModItem 
     {
-
+        public static bool Perfect;
         public override string Texture => AssetDir.Weapons + Name;
         public override void SetDefaults()
         {
-
-            Item.channel = true;
-
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 17;
             Item.knockBack = 8f;
@@ -24,10 +20,15 @@ namespace Crystals.Content
             Item.UseSound = SoundID.Item1;
             Item.useAnimation = 20;
             Item.useTime = 20;
-            //Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<TestarangProjectile>();
-            //Item.consumable = true;
+            Item.noUseGraphic = true;
+            
         }
+        public override void RightClick(Player player)
+        {
+            Item.shootSpeed = 10f;
+            Item.shoot = ModContent.ProjectileType<TestarangProjectile>();
+            Item.consumable = true;
 
+        }
     }
 }
