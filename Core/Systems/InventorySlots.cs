@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Crystals.Content.Items.Crystals;
+using Crystals.Content.Items.Techniques;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
@@ -23,7 +24,7 @@ namespace Crystals.Core.Systems
         private UIElement area;
 
 
-        public CrystalSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
+        public CrystalSlot(int context = ItemSlot.Context.BankItem, float scale = 0.8f)
         {
             area = new UIElement();
             area.Left.Set(353f, 0f);
@@ -31,14 +32,13 @@ namespace Crystals.Core.Systems
             area.Width.Set(60f, 0f);
             area.Height.Set(60f, 0f);
             contex = context;
-            
+
             scal = scale;
             Item = new Item();
             Item.SetDefaults();
             Width.Set(scale1 * scale, 0f);
             Height.Set(scale1 * scale, 0f);
             Append(area);
-
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -78,7 +78,8 @@ namespace Crystals.Core.Systems
 
             base.OnInitialize();
         }
-        public TechniquesSlot(int context = ItemSlot.Context.BankItem, float scale = 1f)
+
+        public TechniquesSlot(int context = ItemSlot.Context.BankItem, float scale = 0.8f)
         {
             area = new UIElement();
             area.Left.Set(400f, 0f);
@@ -92,7 +93,6 @@ namespace Crystals.Core.Systems
             Width.Set(scale1 * scale, 0f);
             Height.Set(scale1 * scale, 0f);
             Append(area);
-
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -115,6 +115,7 @@ namespace Crystals.Core.Systems
             Main.inventoryScale = oldScale;
         }
     }
+
     internal class SlotPlacement : UIState
     {
         public static CrystalSlot CRS;
@@ -122,39 +123,36 @@ namespace Crystals.Core.Systems
         public UIPanel CrystalPanel;
         public UIPanel TechniquePanel;
         public static Color CrystalColor;
+
         public override void OnInitialize()
         {
             CrystalPanel = new UIPanel();
             TechniquePanel = new UIPanel();
 
-            CrystalPanel.Width.Set(50f* 0.85f, 0);
-            CrystalPanel.Height.Set(50f* 0.85f, 0);
-            CrystalPanel.Left.Set(353f,0);
-            CrystalPanel.Top.Set(258,0);
+            CrystalPanel.Width.Set(50f * 0.85f, 0);
+            CrystalPanel.Height.Set(50f * 0.85f, 0);
+            CrystalPanel.Left.Set(353f, 0);
+            CrystalPanel.Top.Set(258, 0);
 
 
-            TechniquePanel.Width.Set(50f* 0.85f, 0);
-            TechniquePanel.Height.Set(50f* 0.85f, 0);
-            TechniquePanel.Left.Set(400f,0);
-            TechniquePanel.Top.Set(258,0);
+            TechniquePanel.Width.Set(50f * 0.85f, 0);
+            TechniquePanel.Height.Set(50f * 0.85f, 0);
+            TechniquePanel.Left.Set(400f, 0);
+            TechniquePanel.Top.Set(258, 0);
             TechniquePanel.BackgroundColor = new Color(63, 65, 151);
 
 
-            CRS = new CrystalSlot(ItemSlot.Context.BankItem, 0.85f)
+            CRS = new CrystalSlot(ItemSlot.Context.BankItem, 1f)
             {
                 Top = { Pixels = 258f },
                 Left = { Pixels = 353f },
                 ValidItemFunc = item => item.IsAir || !item.IsAir && ValidSlotItems.ValidCrystals.Contains(item.type)
-
-
             };
-            TCS = new TechniquesSlot(ItemSlot.Context.BankItem, 0.85f)
+            TCS = new TechniquesSlot(ItemSlot.Context.BankItem, 1f)
             {
-                
                 Top = { Pixels = 258f },
                 Left = { Pixels = 400f },
                 ValidItemFunc = item => item.IsAir || !item.IsAir && ValidSlotItems.ValidTechniques.Contains(item.type)
-
             };
 
 
@@ -166,46 +164,47 @@ namespace Crystals.Core.Systems
 
         public override void Update(GameTime gameTime)
         {
-           //This determines the color of the slot,i couldnt find a better way to do it unfortunately since there isnt a reliable way to find what is inside the slot
+            //This determines the color of the slot,i couldnt find a better way to do it unfortunately since there isnt a reliable way to find what is inside the slot
             if (!CRS.Item.IsAir)
             {
-                if(CRS.Item.type == ModContent.ItemType<GreenCrystal>())
+                if (CRS.Item.type == ModContent.ItemType<GreenCrystal>())
                 {
-                CrystalPanel.BackgroundColor = Color.Green;
+                    CrystalPanel.BackgroundColor = Color.Green;
                 }
 
-                if(CRS.Item.type == ModContent.ItemType<RedCrystal>())
+                if (CRS.Item.type == ModContent.ItemType<RedCrystal>())
                 {
-                CrystalPanel.BackgroundColor = Color.Red;
+                    CrystalPanel.BackgroundColor = Color.Red;
                 }
-                
             }
-            else { 
-                
+            else
+            {
                 CrystalPanel.BackgroundColor = Color.Gray;
             }
         }
-
     }
+
     internal class CrystalSlotImage : UIState
     {
         public UIImage CrystalImage;
+
         public override void OnInitialize()
         {
-        CrystalImage = new UIImage(ModContent.Request<Texture2D>(AssetDir.UI + "UI_Crystal"));
+            CrystalImage = new UIImage(ModContent.Request<Texture2D>(AssetDir.UI + "UI_Crystal"));
             CrystalImage.Width.Set(30f * 0.85f, 0);
             CrystalImage.Height.Set(30f * 0.85f, 0);
             CrystalImage.Left.Set(348f, 0);
             CrystalImage.Top.Set(254f, 0);
             CrystalImage.ImageScale = 0.58f;
-            
-            Append(CrystalImage);
 
+            Append(CrystalImage);
         }
     }
+
     internal class TechniqueSlotImage : UIState
     {
         public UIImage TechniqueImage;
+
         public override void OnInitialize()
         {
             TechniqueImage = new UIImage(ModContent.Request<Texture2D>(AssetDir.Techniques + "Technique"));
@@ -214,9 +213,8 @@ namespace Crystals.Core.Systems
             TechniqueImage.Left.Set(395f, 0);
             TechniqueImage.Top.Set(254f, 0);
             TechniqueImage.ImageScale = 0.58f;
-            
-            Append(TechniqueImage);
 
+            Append(TechniqueImage);
         }
     }
 
@@ -234,11 +232,11 @@ namespace Crystals.Core.Systems
             Slots = new();
             SlotUI = new();
             SlotUI.SetState(Slots);
-            
+
             CRImage = new();
             CrystalImage = new();
             CrystalImage.SetState(CRImage);
-            
+
             TCImage = new();
             TechniqueImage = new();
             TechniqueImage.SetState(TCImage);
@@ -257,31 +255,29 @@ namespace Crystals.Core.Systems
             if (resourceBarIndex != -1)
             {
                 layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "meltingsoulsmod : Frame",
-                delegate
-                {
-                    var player = Main.LocalPlayer;
-                    if (Main.playerInventory == true)
+                    "meltingsoulsmod : Frame",
+                    delegate
                     {
-                        SlotUI.Draw(Main.spriteBatch, new GameTime());
-                        if (SlotPlacement.CRS.Item.IsAir)
+                        var player = Main.LocalPlayer;
+                        if (Main.playerInventory == true)
                         {
-                            CrystalImage.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        if (SlotPlacement.TCS.Item.IsAir)
-                        {
-                            TechniqueImage.Draw(Main.spriteBatch, new GameTime());
-                        }
-                    }
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
+                            SlotUI.Draw(Main.spriteBatch, new GameTime());
+                            if (SlotPlacement.CRS.Item.IsAir)
+                            {
+                                CrystalImage.Draw(Main.spriteBatch, new GameTime());
+                            }
 
+                            if (SlotPlacement.TCS.Item.IsAir)
+                            {
+                                TechniqueImage.Draw(Main.spriteBatch, new GameTime());
+                            }
+                        }
 
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
             }
-
         }
     }
 }
-

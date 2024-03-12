@@ -1,4 +1,6 @@
-﻿using Crystals.Content.Techniques;
+﻿using System.Collections.Generic;
+using Crystals.Content.Items.Techniques;
+using Crystals.Content.Techniques;
 using Crystals.Core.Systems.Combat.Techniques;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
@@ -11,8 +13,12 @@ public class TechniqueHandler : ModPlayer
     
     public static ModKeybind UseTechniqueKey;
 
-    public Technique CurrentTechnique => new Barrier();
     
+    //ToDo Update Techniques Different
+    public Technique CurrentTechnique => TechniqueItems[SlotPlacement.TCS.Item].ItemTechnique();
+
+    public static Dictionary<Item, TechniqueItem> TechniqueItems = new Dictionary<Item, TechniqueItem>();
+
     public override void Load()
     {
         UseTechniqueKey = KeybindLoader.RegisterKeybind(Mod, "Use Technique ", Keys.LeftControl);
@@ -55,7 +61,12 @@ public class TechniqueHandler : ModPlayer
 
     public override void PostUpdate()
     {
-        Main.NewText(Player.GetModPlayer<Stamina>().StatStamina);
+
+        if (CurrentTechnique == null)
+        {
+            return;
+        }
+        
         if (!Player.GetModPlayer<Stance>().Stunned && Player.GetModPlayer<Stamina>().StatStamina >= CurrentTechnique.MinimalStamina())
         {
             switch (CurrentTechnique.TechniqueType())
@@ -87,7 +98,7 @@ public class TechniqueHandler : ModPlayer
 
     public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
     {
-        if (Blocking && Player.GetModPlayer<Stamina>().StatStamina != 0) 
+        if (Blocking && Player.GetModPlayer<Stamina>().StatStamina > CurrentTechnique.MinimalStamina()) 
         {
             modifiers.Knockback *= CurrentTechnique.KnockBackReduction();
             modifiers.FinalDamage *= CurrentTechnique.DamageReduction();
@@ -97,7 +108,7 @@ public class TechniqueHandler : ModPlayer
 
     public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
     {
-        if (Blocking)
+        if (Blocking && Player.GetModPlayer<Stamina>().StatStamina > CurrentTechnique.MinimalStamina())
         {
             modifiers.Knockback *= CurrentTechnique.KnockBackReduction();
             modifiers.FinalDamage *= CurrentTechnique.DamageReduction();

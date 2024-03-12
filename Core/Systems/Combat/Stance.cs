@@ -107,9 +107,11 @@ public class Stance : ModPlayer
             modifiers.FinalDamage *= 1.5f;
             Stunned = false;
             StanceHealth = StanceHealthMax;
+            Player.GetModPlayer<Stamina>().StatStamina += 10;
         }
         
-        if (StanceHealth <= 0)
+        if (StanceHealth <= 0 || Player.GetModPlayer<TechniqueHandler>().Blocking && 
+            Player.GetModPlayer<Stamina>().StatStamina <= Player.GetModPlayer<TechniqueHandler>().CurrentTechnique.MinimalStamina())
         {
             Stunned = true;
             StunCooldown = 0;

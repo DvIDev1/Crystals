@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Crystals.Core.Systems.Combat;
@@ -23,6 +24,8 @@ public class Stamina : ModPlayer
     {
         //TODO No instant regen
         LastStaminaUse++;
+
+        StatStamina = MathHelper.Clamp(StatStamina, 0, StatStaminaMax);
        
         if (ModContent.GetInstance<PlayerState>().CurrentState == States.Idle && LastStaminaUse >= 60*10)
         {

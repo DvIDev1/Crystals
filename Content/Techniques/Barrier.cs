@@ -9,10 +9,6 @@ public class Barrier : Technique
 
     public override float StaminaUse() => 0;
 
-    public override int StartTime() => 0;
-
-    public override int Duration() => 180;
-
     public override float KnockBackReduction() => .5f;
 
     public override float DamageReduction() => .25f;

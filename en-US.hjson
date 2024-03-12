@@ -20,6 +20,16 @@ Mods: {
 				DisplayName: Technique
 				Tooltip: ""
 			}
+
+			Barrier: {
+				DisplayName: Barrier
+				Tooltip: ""
+			}
+
+			BarrierItem: {
+				DisplayName: Barrier Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles.TestarangProjectile.DisplayName: Testarang Projectile
