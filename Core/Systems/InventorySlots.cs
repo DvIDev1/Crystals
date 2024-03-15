@@ -24,20 +24,20 @@ namespace Crystals.Core.Systems
         private UIElement area;
 
 
-        public CrystalSlot(int context = ItemSlot.Context.BankItem, float scale = 0.8f)
+        public CrystalSlot(int context = ItemSlot.Context.BankItem)
         {
             area = new UIElement();
-            area.Left.Set(353f, 0f);
-            area.Top.Set(258f, 0f);
+            area.Left.Set(352f, 0f);
+            area.Top.Set(257f, 0f);
             area.Width.Set(60f, 0f);
             area.Height.Set(60f, 0f);
             contex = context;
 
-            scal = scale;
+            scal = 0.85f;
             Item = new Item();
             Item.SetDefaults();
-            Width.Set(scale1 * scale, 0f);
-            Height.Set(scale1 * scale, 0f);
+            Width.Set(scale1, 0f);
+            Height.Set(scale1, 0f);
             Append(area);
         }
 
@@ -79,19 +79,19 @@ namespace Crystals.Core.Systems
             base.OnInitialize();
         }
 
-        public TechniquesSlot(int context = ItemSlot.Context.BankItem, float scale = 0.8f)
+        public TechniquesSlot(int context = ItemSlot.Context.BankItem)
         {
             area = new UIElement();
             area.Left.Set(400f, 0f);
-            area.Top.Set(258f, 0f);
+            area.Top.Set(257f, 0f);
             area.Width.Set(60f, 0f);
             area.Height.Set(60f, 0f);
             contex = context;
-            scal = scale;
+            scal = 0.80f;
             Item = new Item();
             Item.SetDefaults();
-            Width.Set(scale1 * scale, 0f);
-            Height.Set(scale1 * scale, 0f);
+            Width.Set(scale1, 0f);
+            Height.Set(scale1, 0f);
             Append(area);
         }
 
@@ -142,13 +142,13 @@ namespace Crystals.Core.Systems
             TechniquePanel.BackgroundColor = new Color(63, 65, 151);
 
 
-            CRS = new CrystalSlot(ItemSlot.Context.BankItem, 1f)
+            CRS = new CrystalSlot(ItemSlot.Context.BankItem)
             {
                 Top = { Pixels = 258f },
                 Left = { Pixels = 353f },
                 ValidItemFunc = item => item.IsAir || !item.IsAir && ValidSlotItems.ValidCrystals.Contains(item.type)
             };
-            TCS = new TechniquesSlot(ItemSlot.Context.BankItem, 1f)
+            TCS = new TechniquesSlot(ItemSlot.Context.BankItem)
             {
                 Top = { Pixels = 258f },
                 Left = { Pixels = 400f },

@@ -92,3 +92,13 @@
 /bin/Debug/net6.0/tModLoader.xml
 /bin/Debug/net6.0/tModPorter.dll.config
 /bin/Debug/net6.0/UtfUnknown.xml
+/bin/Debug/net6.0/Mono.Cecil.dll
+/bin/Debug/net6.0/Mono.Cecil.Mdb.dll
+/bin/Debug/net6.0/Mono.Cecil.Pdb.dll
+/bin/Debug/net6.0/Mono.Cecil.Rocks.dll
+/bin/Debug/net6.0/MonoMod.Backports.dll
+/bin/Debug/net6.0/MonoMod.Core.dll
+/bin/Debug/net6.0/MonoMod.Iced.dll
+/bin/Debug/net6.0/MonoMod.ILHelpers.dll
+/bin/Debug/net6.0/MonoMod.RuntimeDetour.dll
+/bin/Debug/net6.0/MonoMod.Utils.dll
